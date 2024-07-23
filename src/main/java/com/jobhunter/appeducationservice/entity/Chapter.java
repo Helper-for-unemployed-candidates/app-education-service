@@ -15,5 +15,5 @@ public class Chapter extends AbsUUIDEntity {
     private String title;
     private String description;
     @ManyToOne
-    private Courses course;
+    private Course course;
 }

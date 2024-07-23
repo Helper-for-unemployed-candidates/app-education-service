@@ -2,6 +2,9 @@ package com.jobhunter.appeducationservice.entity;
 
 import com.jobhunter.appeducationservice.entity.template.AbsUUIDEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.ws.rs.DefaultValue;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,11 +15,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Courses extends AbsUUIDEntity {
+public class Course extends AbsUUIDEntity {
     private String title;
     private String about;
-    private UUID uploaded_by_user;
-
-
-
+    @DefaultValue(value = "true")
+    private boolean isPayable;
+    private Double price;
+    @OneToOne
+    private Attachment attachment;
 }
