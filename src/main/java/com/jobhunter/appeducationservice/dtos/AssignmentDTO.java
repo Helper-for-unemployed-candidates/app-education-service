@@ -1,8 +1,7 @@
 package com.jobhunter.appeducationservice.dtos;
 
-import com.jobhunter.appeducationservice.entity.Assignment;
-import com.jobhunter.appeducationservice.entity.Attachment;
-import jakarta.persistence.OneToOne;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class AssignmentDTO {
+    @NotBlank(message = "task description should be filled")
     private String taskDescription;
     private UUID attachmentId;
 }

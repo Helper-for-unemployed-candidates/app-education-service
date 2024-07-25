@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,7 @@ public class ChapterController {
             })
     @PostMapping("/save")
     @Authorize(permissions = RoleEnum.COMPANY)
-    Response<ChapterDTO> saveChapter(@RequestBody ChapterDTO chapterDTO) {
+    Response<ChapterDTO> saveChapter(@Valid @RequestBody ChapterDTO chapterDTO) {
         return Response.successResponse(chapterService.saveChapter(chapterDTO));
     }
 
@@ -57,7 +58,7 @@ public class ChapterController {
             })
     @PutMapping("/update/{chapterId}")
     @Authorize(permissions = RoleEnum.COMPANY)
-    Response<ChapterDTO> updateChapter(@PathVariable UUID chapterId, @RequestBody ChapterUpdateDTO chapterDTO) {
+    Response<ChapterDTO> updateChapter(@PathVariable UUID chapterId, @Valid @RequestBody ChapterUpdateDTO chapterDTO) {
         return Response.successResponse(chapterService.updateChapter(chapterId, chapterDTO));
     }
 
@@ -80,53 +81,3 @@ public class ChapterController {
 }
 
 
-
-
-/*
-package com.jobhunter.appeducationservice.controllers;
-
-import com.jobhunter.appeducationservice.dtos.ChapterDTO;
-import com.jobhunter.appeducationservice.dtos.ChapterUpdateDTO;
-import com.jobhunter.appeducationservice.service.serives.ChapterService;
-import com.jobhunter.appeducationservice.shit.aop.Authorize;
-import com.jobhunter.appeducationservice.shit.enums.RoleEnum;
-import com.jobhunter.appeducationservice.shit.payload.Response;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
-
-@RestController
-@RequestMapping(ChapterController.BASE_URL)
-@RequiredArgsConstructor
-public class ChapterController {
-    public static final String BASE_URL = "/api/v1/e/chapter";
-    private final ChapterService chapterService;
-
-    @GetMapping("/{courseId}")
-    Response<List<ChapterDTO>> getAllChapterByCourseId(@PathVariable UUID courseId) {
-        return Response.successResponse(chapterService.getAllChapterByCourseId(courseId));
-    }
-
-    @PostMapping("/save")
-    @Authorize(permissions = RoleEnum.COMPANY)
-    Response<ChapterDTO> saveChapter(@RequestBody ChapterDTO chapterDTO) {
-        return Response.successResponse(chapterService.saveChapter(chapterDTO));
-    }
-
-    @PutMapping("/update/{chapterId}")
-    @Authorize(permissions = RoleEnum.COMPANY)
-    Response<ChapterDTO> updateChapter(@PathVariable UUID chapterId, @RequestBody ChapterUpdateDTO chapterDTO) {
-        return Response.successResponse(chapterService.updateChapter(chapterId, chapterDTO));
-    }
-
-    @DeleteMapping("/{chapterId}")
-    @Authorize(permissions = RoleEnum.ADMIN)
-    Response<Void> deleteChapter(@PathVariable UUID chapterId) {
-        chapterService.deleteChapter(chapterId);
-        return Response.successResponse();
-    }
-
-}
-*/

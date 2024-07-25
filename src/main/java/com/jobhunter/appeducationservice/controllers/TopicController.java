@@ -1,6 +1,7 @@
 package com.jobhunter.appeducationservice.controllers;
 import com.jobhunter.appeducationservice.dtos.TopicDTO;
 import com.jobhunter.appeducationservice.dtos.TopicUpdateDTO;
+import com.jobhunter.appeducationservice.exceptions.RestException;
 import com.jobhunter.appeducationservice.service.serives.TopicService;
 import com.jobhunter.appjobfestservice.shit.payload.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,7 @@ public class TopicController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "List of topics retrieved successfully",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Response.class)))
+                                    schema = @Schema(implementation = TopicDTO.class)))
             })
     @GetMapping("/{chapterId}")
     public Response<List<TopicDTO>> getAllTopics(@PathVariable UUID chapterId) {
@@ -55,7 +57,7 @@ public class TopicController {
                                     schema = @Schema(implementation = Response.class)))
             })
     @PostMapping("/create")
-    public Response<TopicDTO> createTopic(@RequestBody TopicDTO topicDTO) {
+    public Response<TopicDTO> createTopic(@Valid @RequestBody TopicDTO topicDTO) {
         return Response.successResponse(topicService.createTopic(topicDTO));
     }
 
@@ -72,10 +74,10 @@ public class TopicController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Topic updated successfully",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Response.class)))
+                                    schema = @Schema(implementation = TopicDTO.class)))
             })
     @PutMapping("/update/{chapterId}")
-    public Response<TopicDTO> updateTopic(@PathVariable UUID chapterId, @RequestBody TopicUpdateDTO topicDTO) {
+    public Response<TopicDTO> updateTopic(@PathVariable UUID chapterId,@Valid @RequestBody TopicUpdateDTO topicDTO) {
         return Response.successResponse(topicService.updateTopic(chapterId, topicDTO));
     }
 
