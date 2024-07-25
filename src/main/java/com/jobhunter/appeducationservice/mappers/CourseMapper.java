@@ -6,23 +6,28 @@ import com.jobhunter.appeducationservice.entity.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface CourseMapper {
+@Mapper(componentModel = "spring", uses = {PageMapper.class})
+public abstract class CourseMapper {
 
-    Course toCourses(CourseDTO coursesDTO);
+    @Autowired
+    private PageMapper pageMapper;
+
+    public abstract Course toCourses(CourseDTO coursesDTO);
 
     @Mapping(target = "attachmentId", source = "attachment.id")
-    CourseDTO toCoursesDTO(Course course);
+    public abstract CourseDTO toCoursesDTO(Course course);
 
     @Mapping(target = "id", ignore = true)
-    void updateCourse(@MappingTarget Course courses, CoursesUpdateDTO coursesDTO);
+    public abstract void updateCourse(@MappingTarget Course courses, CoursesUpdateDTO coursesDTO);
 
-    List<CourseDTO> courseListToDtoList(List<Course> all);
+    public abstract List<CourseDTO> courseListToDtoList(List<Course> all);
 
-    Page<CourseDTO> coursePageToDtoPage(Page<Course> all);
-
+    public Page<CourseDTO> coursePageToDtoPage(Page<Course> all) {
+        return pageMapper.mapEntityPageToDtoPage(all, this::toCoursesDTO);
+    }
 }

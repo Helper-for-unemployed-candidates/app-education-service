@@ -7,24 +7,37 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-public interface TopicMapper {
+@Mapper(componentModel = "spring", uses = {PageMapper.class})
+public abstract class TopicMapper {
+
+    @Autowired
+    private PageMapper pageMapper;
+
     @Mapping(target = "attachmentId", source = "attachment.id")
-    TopicDTO topicDTO(Topic topic);
+    public abstract TopicDTO topicDTO(Topic topic);
 
     @InheritInverseConfiguration
-    Topic toEntity(TopicDTO dto);
+    public abstract Topic toEntity(TopicDTO dto);
 
     @Mapping(target = "id", ignore = true)
-    void updateTopic(@MappingTarget Topic topic, TopicUpdateDTO dto);
+    public abstract void updateTopic(@MappingTarget Topic topic, TopicUpdateDTO dto);
 
-    Page<TopicDTO> toTopicDTOPageable(Page<Topic> topics);
+    public abstract List<TopicDTO> listToTopicDTOList(List<Topic> topics);
 
-    List<Topic> topicDTOPageable(Page<TopicDTO> dtos);
+    public Page<TopicDTO> toTopicDTOPageable(Page<Topic> topics) {
+        return pageMapper.mapEntityPageToDtoPage(topics, this::topicDTO);
+    }
 
+    public List<Topic> topicDTOPageable(Page<TopicDTO> dtos) {
+        return dtos.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
+    }
+    
 }

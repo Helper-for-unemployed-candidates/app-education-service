@@ -17,11 +17,9 @@ import com.jobhunter.appeducationservice.shit.payload.UserPrincipal;
 import com.jobhunter.appeducationservice.shit.utils.ConstantFields;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -75,13 +73,16 @@ public class TopicServiceImpl implements TopicService {
         return topicMapper.topicDTO(savedTopic);
     }
 
+
     @Override
     public List<TopicDTO> getAllTopicsByChapterId(UUID chapterId) {
-        return List.of();
+        List<Topic> all = topicRepository.findAllByChapterId(chapterId);
+        return topicMapper.listToTopicDTOList(all);
     }
 
     @Override
-    public void deleteTopic(UUID topicId) {
-
+    public void deleteTopic(UUID topicId, UUID chapterId) {
+        topicRepository.deleteByIdAndChapterId(chapterId, topicId);
     }
+
 }

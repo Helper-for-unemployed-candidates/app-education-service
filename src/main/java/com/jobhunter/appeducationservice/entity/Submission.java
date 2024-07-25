@@ -8,19 +8,19 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Entity
-public class Submission extends AbsUUIDEntity {
-    private UUID userId;
-    private byte rate;
-    private String feedBack;
-    @ManyToOne
-    private Assignment assignment;
-    @OneToOne
-    private Attachment attachment;
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @Entity
+    public class Submission extends AbsUUIDEntity {
+            private UUID userId;
+            private byte rate;
+            private String feedBack;
+            @ManyToOne
+            private Assignment assignment;
+            @OneToOne
+            private Attachment attachment;
 
 }

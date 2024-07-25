@@ -13,5 +13,5 @@ public interface TopicService {
     TopicDTO createTopic(TopicDTO dto);
     TopicDTO updateTopic(UUID chapterId,TopicUpdateDTO dto);
     List<TopicDTO> getAllTopicsByChapterId(UUID chapterId);
-    void deleteTopic(UUID topicId);
+    void deleteTopic(UUID chapterId,UUID topicId);
 }
