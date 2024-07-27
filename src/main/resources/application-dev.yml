@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8762/eureka
+      defaultZone: http://ec2-51-20-67-130.eu-north-1.compute.amazonaws.com:8762/eureka
 
 management:
   tracing:
@@ -10,12 +10,12 @@ management:
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
-
+#database-2.cn6kg88w28oy.eu-north-1.rds.amazonaws.com
 spring:
   datasource:
-    url: jdbc:h2:mem:~
-    username: sa
-    password: sa
+    url: jdbc:postgresql://database-2.cn6kg88w28oy.eu-north-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: Root1234
   h2:
     console:
       enabled: true
@@ -36,6 +36,19 @@ spring:
 
 springdoc:
   api-docs:
-    path: /api/v3/api-docs
+    path: /api/v1/e/api-docs
   swagger-ui:
-    path: /api/swagger-ui.html
+    path: /api/v1/e/swagger-ui.html
+
+logging:
+  level:
+    root: warn
+  file:
+    name: figure-this-shit-out.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 10
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
