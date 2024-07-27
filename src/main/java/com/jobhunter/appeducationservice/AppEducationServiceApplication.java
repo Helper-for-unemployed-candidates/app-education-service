@@ -19,10 +19,12 @@ public class AppEducationServiceApplication {
 
 	@Bean
 	public OpenAPI openAPI() {
-		return new OpenAPI()
+		return new OpenAPI().addSecurityItem(
+				new SecurityRequirement().addList("Bearer Authentication")
+		)
 		.info(
 				new Info()
-						.title("education-service API")
+						.title("APP-education service API")
 						.description("This api was generated using springdoc for user-service app")
 						.version("1.0")
 						.contact(
