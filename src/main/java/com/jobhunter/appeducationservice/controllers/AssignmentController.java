@@ -60,6 +60,7 @@ public class AssignmentController {
             @Parameter(description = "Assignment data to be created", required = true)
             @Valid @RequestBody AssignmentDTO assignmentDTO) {
         log.info("Creating assignment: {}", assignmentDTO);
+
         return Response.successResponse(assignmentService.createAssignment(assignmentDTO));
     }
 

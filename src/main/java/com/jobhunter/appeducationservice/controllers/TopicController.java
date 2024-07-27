@@ -1,14 +1,12 @@
 package com.jobhunter.appeducationservice.controllers;
 import com.jobhunter.appeducationservice.dtos.TopicDTO;
 import com.jobhunter.appeducationservice.dtos.TopicUpdateDTO;
-import com.jobhunter.appeducationservice.exceptions.RestException;
 import com.jobhunter.appeducationservice.service.serives.TopicService;
-import com.jobhunter.appjobfestservice.shit.payload.Response;
+import com.jobhunter.appeducationservice.shit.payload.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -77,7 +75,7 @@ public class TopicController {
                                     schema = @Schema(implementation = TopicDTO.class)))
             })
     @PutMapping("/update/{chapterId}")
-    public Response<TopicDTO> updateTopic(@PathVariable UUID chapterId,@Valid @RequestBody TopicUpdateDTO topicDTO) {
+    public Response<TopicDTO> updateTopic(@PathVariable UUID chapterId, @Valid @RequestBody TopicUpdateDTO topicDTO) {
         return Response.successResponse(topicService.updateTopic(chapterId, topicDTO));
     }
 
