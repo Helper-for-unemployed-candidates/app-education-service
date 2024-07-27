@@ -76,6 +76,7 @@ public class TopicController {
             })
     @PutMapping("/update/{chapterId}")
     public Response<TopicDTO> updateTopic(@PathVariable UUID chapterId, @Valid @RequestBody TopicUpdateDTO topicDTO) {
+        //
         return Response.successResponse(topicService.updateTopic(chapterId, topicDTO));
     }
 
