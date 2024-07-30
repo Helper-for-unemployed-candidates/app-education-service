@@ -1,6 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://database-2.cn6kg88w28oy.eu-north-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: Root1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  liquibase:
+    change-log: classpath:liquibase/master.yaml
+    enabled: false
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     serviceUrl:
+      defaultZone: http://ec2-51-20-67-130.eu-north-1.compute.amazonaws.com:8762/eureka
       defaultZone: http://104.197.130.41:8762/eureka
 
 management:
@@ -36,7 +56,7 @@ springdoc:
     path: /api/v1/e/api-docs
   swagger-ui:
     path: /api/v1/e/swagger-ui.html
-    
+
 logging:
   level:
     root: warn
