@@ -3,7 +3,7 @@ import com.jobhunter.appeducationservice.dtos.TopicDTO;
 import com.jobhunter.appeducationservice.dtos.TopicUpdateDTO;
 import com.jobhunter.appeducationservice.exceptions.RestException;
 import com.jobhunter.appeducationservice.service.serives.TopicService;
-import com.jobhunter.appjobfestservice.shit.payload.Response;
+import com.jobhunter.appeducationservice.shit.payload.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
